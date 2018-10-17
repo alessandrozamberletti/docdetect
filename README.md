@@ -1,4 +1,4 @@
-# doc-detect
+# docdetect
 
 [![Build Status](https://travis-ci.org/alessandrozamberletti/docdetect.svg?branch=master)](https://travis-ci.org/alessandrozamberletti/docdetect)
 [![Build status](https://ci.appveyor.com/api/projects/status/l1gjc8g7c1q3846j/branch/master?svg=true)](https://ci.appveyor.com/project/alessandrozamberletti/docdetect/branch/master)
