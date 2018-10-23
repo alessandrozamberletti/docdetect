@@ -5,9 +5,10 @@
 [![codecov](https://codecov.io/gh/alessandrozamberletti/docdetect/branch/master/graph/badge.svg)](https://codecov.io/gh/alessandrozamberletti/docdetect)
 
 Unofficial implementation of: [Fast and Accurate Document Detection for Scanning](https://blogs.dropbox.com/tech/2016/08/fast-and-accurate-document-detection-for-scanning/)
+ 
+2018/10/20: edge detection wip -> check literature and datasets **done**
+2018/10/23: edge detection wip -> use canny+contours+hough & compare with ml approach **wip**
 
-2018/10/16: work in progress  
-2018/10/20: edge detection wip
-* resources:  
-  * https://arxiv.org/pdf/1504.06375.pdf
-  * https://pdollar.github.io/files/papers/DollarPAMI15edges.pdf
+# resources  
+* https://arxiv.org/pdf/1504.06375.pdf
+* https://pdollar.github.io/files/papers/DollarPAMI15edges.pdf
