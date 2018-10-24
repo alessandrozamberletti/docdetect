@@ -9,6 +9,11 @@ Unofficial implementation of: [Fast and Accurate Document Detection for Scanning
 2018/10/20: edge detection wip -> check literature and datasets **done**
 2018/10/23: edge detection wip -> use canny+contours+hough & compare with ml approach **wip**
 
+1. remove text using mser  
+2. canny  
+3. hough  
+4. candidates
+
 # resources  
 * https://arxiv.org/pdf/1504.06375.pdf
 * https://pdollar.github.io/files/papers/DollarPAMI15edges.pdf
