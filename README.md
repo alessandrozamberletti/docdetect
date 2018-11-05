@@ -10,8 +10,10 @@
 2018/10/23: compare canny+mser+hough and ml approach **done**  
 2018/11/01: too many lines from hough with low thr: group similar rho, ~~theta~~ values **done**  
 2018/11/02: detect intersections, identify unusual ones **done**  
-2018/11/03: **wip**
+2018/11/03: 
 > iterate through potential document corners, and enumerate all possible quadrilaterals
+
+2018/11/05: recursive graph algorithm **wip**
 
 # resources  
 * https://arxiv.org/pdf/1504.06375.pdf
