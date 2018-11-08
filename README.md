@@ -13,7 +13,8 @@
 2018/11/03: 
 > iterate through potential document corners, and enumerate all possible quadrilaterals
 
-2018/11/05: recursive graph algorithm **wip**
+2018/11/05: recursive graph algorithm (dfs) **done**  
+2018/11/08: detect most probable quadrilaters and drop false positive **wip**
 
 # resources  
 * https://arxiv.org/pdf/1504.06375.pdf
