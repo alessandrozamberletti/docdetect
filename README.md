@@ -13,8 +13,9 @@
 2018/11/03: 
 > iterate through potential document corners, and enumerate all possible quadrilaterals
 
-2018/11/05: recursive graph algorithm (dfs) **done**  
+2018/11/05: cycle graph search (dfs) **done**  
 2018/11/08: detect most probable quadrilaters and drop false positive **wip**
+2018/11/09: try to take the largest rectangle, maybe it works **wip**
 
 # resources  
 * https://arxiv.org/pdf/1504.06375.pdf
