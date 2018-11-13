@@ -1,2 +1,2 @@
 # -*- coding: utf-8 -*-
-from docdetect.edge_utils import *
+from docdetect.edges import detect_edges
