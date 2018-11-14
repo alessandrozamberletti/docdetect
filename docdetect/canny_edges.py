@@ -3,12 +3,16 @@ import cv2
 
 
 def detect_edges(im, blur=False, blur_radius=9, thr1=100, thr2=200, remove_text=True):
-    saturation = preprocess(im, blur, blur_radius)
-    edges = cv2.Canny(saturation, thr1, thr2)
+    enhanced_im = preprocess(im, blur, blur_radius)
+    edges = cv2.Canny(enhanced_im, thr1, thr2)
     if remove_text:
+        # find characters in im
         characters = find_characters(im)
+        # delete characters from edges mask
         for character in characters:
-            edges[character[:, 1], character[:, 0]] = 0
+            x = character[:, 1]
+            y = character[:, 0]
+            edges[x, y] = 0
     return edges
 
 
@@ -22,7 +26,7 @@ def find_characters(im):
 
 
 def preprocess(im, blur, blur_radius):
-    saturation = cv2.cvtColor(im, cv2.COLOR_BGR2HSV)[:, :, 2]
+    saturation = cv2.cvtColor(im, cv2.COLOR_BGR2HSV)[..., 2]
     if blur:
         saturation = cv2.medianBlur(saturation, blur_radius)
     return saturation
