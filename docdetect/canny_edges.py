@@ -6,13 +6,13 @@ def detect_edges(im, blur=False, blur_radius=9, thr1=100, thr2=200, remove_text=
     saturation = preprocess(im, blur, blur_radius)
     edges = cv2.Canny(saturation, thr1, thr2)
     if remove_text:
-        characters = find_text_regions(im)
+        characters = find_characters(im)
         for character in characters:
             edges[character[:, 1], character[:, 0]] = 0
     return edges
 
 
-def find_text_regions(im):
+def find_characters(im):
     height, width = im.shape[:2]
     max_size = int((width * height) / 1e2)
     mser = cv2.MSER_create(_max_area=max_size)
