@@ -6,7 +6,7 @@ from os.path import join
 from numpy import unique, sort
 from numpy.testing import assert_array_equal
 
-from docdetect.canny_edges import detect_edges, preprocess, find_characters
+from docdetect.canny_edges import detect_edges, _preprocess, _find_characters
 
 
 class TestCannyEdges(TestCase):
@@ -22,11 +22,12 @@ class TestCannyEdges(TestCase):
         assert_array_equal([0, 255], sort(unique(edges)))
 
     def test_preprocess_correct_shape(self):
-        preprocess_im = preprocess(self.im, True, 3)
+        preprocess_im = _preprocess(self.im, True, 3)
         self.assertEqual(2, len(preprocess_im.shape))
 
     def test_find_characters(self):
-        characters = find_characters(self.im)
+        height, width = self.im.shape[:2]
+        characters = _find_characters(self.im, int((width * height) / 1e2))
         self.assertEqual(377, len(characters))
         for character in characters:
             self.assertEqual(2, character.shape[-1])
