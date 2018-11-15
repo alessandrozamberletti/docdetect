@@ -6,7 +6,6 @@ def detect_edges(im, blur=False, blur_radius=9, thr1=100, thr2=200, remove_text=
     enhanced_im = _preprocess(im, blur, blur_radius)
     edges = cv2.Canny(enhanced_im, thr1, thr2)
     if remove_text:
-        # find characters in im
         height, width = im.shape[:2]
         characters = _find_characters(im, int((width * height) / 1e2))
         # remove characters from edges mask

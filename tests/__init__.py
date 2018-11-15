@@ -1,6 +1,7 @@
 # -*- coding: utf-8 -*-
-from os import path
+from os.path import dirname, realpath, join
+from cv2 import imread
 
 
-pwd = path.dirname(path.realpath(__file__))
-im_folder = path.join(pwd, 'res')
+pwd = dirname(realpath(__file__))
+im = imread(join(pwd, 'res', 'sample.jpg'))
