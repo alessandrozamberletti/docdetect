@@ -20,6 +20,7 @@ class TestCannyEdges(TestCase):
 
     def test_format_cvhoughlines2list(self):
         self.assertEqual([(0, 1), (2, 3)], cvhoughlines2list([[[0, 1]], [[2, 3]]]))
+        self.assertEqual([], cvhoughlines2list([]))
 
     def test_group_similar_no_duplicates(self):
         pass
