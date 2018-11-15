@@ -14,7 +14,7 @@ def detect_lines(im, rho=1, theta=np.pi/90, hough_thr=65, group_similar=True, an
 
 
 def cvhoughlines2list(lines):
-    pass
+    return [tuple(line[0]) for line in lines]
 
 
 def _group_similar(lines, angle_thr):

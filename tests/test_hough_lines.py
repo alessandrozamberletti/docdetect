@@ -3,7 +3,7 @@ from tests import im
 from unittest import TestCase, main
 
 from docdetect.canny_edges import detect_edges
-from docdetect.hough_lines import detect_lines, _group_similar
+from docdetect.hough_lines import detect_lines, _group_similar, cvhoughlines2list
 
 
 class TestCannyEdges(TestCase):
@@ -18,8 +18,8 @@ class TestCannyEdges(TestCase):
         grouped_lines = detect_lines(self.edges, group_similar=True)
         self.assertGreater(len(raw_lines), len(grouped_lines))
 
-    def test_cvhoughlines2list(self):
-        pass
+    def test_format_cvhoughlines2list(self):
+        self.assertEqual([(0, 1), (2, 3)], cvhoughlines2list([[[0, 1]], [[2, 3]]]))
 
     def test_group_similar_no_duplicates(self):
         pass
