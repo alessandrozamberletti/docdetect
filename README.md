@@ -19,6 +19,15 @@
 2018/11/11: 1st version spike completed 
 2018/11/13: implementation started..
 
+```python
+edges = docdetect.detect_edges(im)
+lines = docdetect.detect_lines(edges)
+corners = docdetect.find_corners(lines_unique, im)
+rects = docdetect.find_quadrilaterals(corners)
+for rect in rect:
+    ...
+```
+
 # resources  
 * https://arxiv.org/pdf/1504.06375.pdf
 * https://pdollar.github.io/files/papers/DollarPAMI15edges.pdf
