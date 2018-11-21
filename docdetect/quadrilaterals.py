@@ -2,15 +2,19 @@
 from docdetect.line_utils import lines_are_same
 
 
-def find_quadrilaterals(corners):
-    graph = build_graph(corners)
+def find_quadrilaterals(corners, full=False):
+    graph = _build_graph(corners)
     quadrilaterals = []
-    if len(graph) != 0:
-        dfs_partial(graph, 0, quadrilaterals)
-    return cycle2coords(quadrilaterals, corners)
+    if full:
+        if len(graph) != 0:
+            _dfs(graph, 0, quadrilaterals)
+    else:
+        for node in graph:
+            _partial_dfs(graph, node, quadrilaterals)
+    return _cycle2coords(quadrilaterals, corners)
 
 
-def cycle2coords(cycles, corners):
+def _cycle2coords(cycles, corners):
     coords = []
     for k1 in cycles:
         rect = []
@@ -24,7 +28,7 @@ def cycle2coords(cycles, corners):
     return coords
 
 
-def build_graph(corners):
+def _build_graph(corners):
     graph = {}
     for corner in corners:
         line1 = corner[-4]
@@ -45,7 +49,18 @@ def build_graph(corners):
     return graph
 
 
-def dfs_partial(neighbours, current_node, cycles, seen_nodes=[], cycle_length=4):
+def _dfs(neighbours, current_node, cycles, seen_nodes=[], cycle_length=4):
+    if current_node in seen_nodes:
+        if len(seen_nodes) - seen_nodes.index(current_node) == cycle_length:
+            cycles.append(seen_nodes[seen_nodes.index(current_node):].copy())
+        return
+    seen_nodes.append(current_node)
+    for adj_node in neighbours[current_node]:
+        _dfs(neighbours, adj_node, cycles, seen_nodes=seen_nodes)
+    del seen_nodes[-1]
+
+
+def _partial_dfs(neighbours, current_node, cycles, seen_nodes=[], cycle_length=4):
     if current_node not in seen_nodes:
         seen_nodes.append(current_node)
         if len(seen_nodes) == cycle_length:
@@ -53,5 +68,5 @@ def dfs_partial(neighbours, current_node, cycles, seen_nodes=[], cycle_length=4)
                 cycles.append(seen_nodes.copy())
         else:
             for adj_node in neighbours[current_node]:
-                dfs_partial(neighbours, adj_node, cycles, seen_nodes=seen_nodes)
+                _partial_dfs(neighbours, adj_node, cycles, seen_nodes=seen_nodes)
         del seen_nodes[-1]
