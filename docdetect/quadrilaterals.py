@@ -1,4 +1,7 @@
 # -*- coding: utf-8 -*-
+from docdetect.line_utils import lines_are_same
+
+
 def find_quadrilaterals(corners):
     graph = build_graph(corners)
     quadrilaterals = []
@@ -42,17 +45,6 @@ def build_graph(corners):
     return graph
 
 
-def dfs(neighbours, current_node, cycles, seen_nodes=[], cycle_length=4):
-    if current_node in seen_nodes:
-        if len(seen_nodes) - seen_nodes.index(current_node) == cycle_length:
-            cycles.append(seen_nodes[seen_nodes.index(current_node):].copy())
-        return
-    seen_nodes.append(current_node)
-    for adj_node in neighbours[current_node]:
-        dfs(neighbours, adj_node, cycles, seen_nodes=seen_nodes)
-    del seen_nodes[-1]
-
-
 def dfs_partial(neighbours, current_node, cycles, seen_nodes=[], cycle_length=4):
     if current_node not in seen_nodes:
         seen_nodes.append(current_node)
@@ -63,7 +55,3 @@ def dfs_partial(neighbours, current_node, cycles, seen_nodes=[], cycle_length=4)
             for adj_node in neighbours[current_node]:
                 dfs_partial(neighbours, adj_node, cycles, seen_nodes=seen_nodes)
         del seen_nodes[-1]
-
-
-def lines_are_same(line1, line2):
-    return line1 == line2

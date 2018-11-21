@@ -1,6 +1,8 @@
 # -*- coding: utf-8 -*-
 import numpy as np
 
+from docdetect.line_utils import lines_are_same
+
 
 def find_corners(lines, im):
     height, width = im.shape[:2]
@@ -37,7 +39,3 @@ def already_present(_x0, _y0, angles):
         if _x0 == x0 and _y0 == y0:
             return True
     return False
-
-
-def lines_are_same(line1, line2):
-    return line1 == line2
