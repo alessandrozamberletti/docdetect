@@ -4,6 +4,7 @@ import numpy as np
 from docdetect.line_utils import lines_are_same
 
 
+# TODO fix corner format so that it makes more sense
 def find_corners(lines, im):
     height, width = im.shape[:2]
     corners = []
@@ -32,6 +33,7 @@ def find_corners(lines, im):
     return corners
 
 
+# TODO _x0, _y0 becomes line, if becomes lines_are_same
 def already_present(_x0, _y0, angles):
     for x in angles:
         x0 = x[-2]
