@@ -2,19 +2,21 @@
 import cv2
 
 
-# TODO extract _remove_text + tests
 def detect_edges(im, blur=False, blur_radius=9, thr1=100, thr2=200, remove_text=True):
     enhanced_im = _preprocess(im, blur, blur_radius)
     edges = cv2.Canny(enhanced_im, thr1, thr2)
     if remove_text:
         height, width = im.shape[:2]
         characters = _find_characters(im, int((width * height) / 1e2))
-        # remove characters from edges mask
-        for character in characters:
-            x = character[:, 1]
-            y = character[:, 0]
-            edges[x, y] = 0
+        _remove_characters(characters, edges)
     return edges
+
+
+def _remove_characters(characters, mask):
+    for character in characters:
+        x = character[:, 1]
+        y = character[:, 0]
+        mask[x, y] = 0
 
 
 def _find_characters(im, max_area):

@@ -1,10 +1,10 @@
 # -*- coding: utf-8 -*-
 from unittest import TestCase, main
 from tests import im
-from numpy import unique, sort
+from numpy import unique, sort, ones, array, count_nonzero
 from numpy.testing import assert_array_equal
 
-from docdetect.canny_edges import detect_edges, _preprocess, _find_characters
+from docdetect.canny_edges import detect_edges, _preprocess, _find_characters, _remove_characters
 
 
 class TestCannyEdges(TestCase):
@@ -25,6 +25,15 @@ class TestCannyEdges(TestCase):
         self.assertEqual(377, len(characters))
         for character in characters:
             self.assertEqual(2, character.shape[-1])
+
+    def test_remove_characters(self):
+        character = array([[2, 3], [1, 1]])
+        mask = ones((5, 5))
+        self.assertEqual(25, count_nonzero(mask))
+        _remove_characters([character], mask)
+        self.assertEqual(23, count_nonzero(mask))
+        self.assertEqual(0, mask[3, 2])
+        self.assertEqual(0, mask[1, 1])
 
 
 if __name__ == "__main__":
