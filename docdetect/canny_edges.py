@@ -12,11 +12,11 @@ def detect_edges(im, blur=False, blur_radius=9, thr1=100, thr2=200, remove_text=
     return edges
 
 
-def _remove_characters(characters, mask):
-    for character in characters:
-        x = character[:, 1]
-        y = character[:, 0]
-        mask[x, y] = 0
+def _preprocess(im, blur, blur_radius):
+    saturation = cv2.cvtColor(im, cv2.COLOR_BGR2HSV)[..., 2]
+    if blur:
+        saturation = cv2.medianBlur(saturation, blur_radius)
+    return saturation
 
 
 def _find_characters(im, max_area):
@@ -26,8 +26,8 @@ def _find_characters(im, max_area):
     return characters
 
 
-def _preprocess(im, blur, blur_radius):
-    saturation = cv2.cvtColor(im, cv2.COLOR_BGR2HSV)[..., 2]
-    if blur:
-        saturation = cv2.medianBlur(saturation, blur_radius)
-    return saturation
+def _remove_characters(characters, mask):
+    for character in characters:
+        x = character[:, 1]
+        y = character[:, 0]
+        mask[x, y] = 0
