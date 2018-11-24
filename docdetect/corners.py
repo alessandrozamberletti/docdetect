@@ -1,11 +1,9 @@
 # -*- coding: utf-8 -*-
 import numpy as np
 
-from docdetect.line_utils import lines_are_same
-
 
 # TODO fix corner format so that it makes more sense
-def find_corners(lines, im):
+def find_corners(lines, im, angle_thr=45):
     height, width = im.shape[:2]
     corners = []
     vertex_id = 0
@@ -13,24 +11,32 @@ def find_corners(lines, im):
         rho1, theta1 = line1
         for line2 in lines:
             rho2, theta2 = line2
-            if lines_are_same(line1, line2):
+            angle = np.abs(theta1 - theta2) * 180 / np.pi
+            if angle < angle_thr:
                 continue
-            a = np.array([[np.cos(theta1), np.sin(theta1)], [np.cos(theta2), np.sin(theta2)]])
-            b = np.array([[rho1], [rho2]])
-            try:
-                # aX = b, solve for x
-                x0, y0 = np.round(np.linalg.solve(a, b))
-                x0, y0 = int(x0), int(y0)
-
-                angle = np.abs(theta1 - theta2) * 180 / np.pi
-                if angle < 45 or x0 < 0 or y0 < 0 or x0 > width or y0 > height:
-                    continue
-                if not already_present(x0, y0, corners):
-                    corners.append([vertex_id, line1, line2, x0, y0])
-                    vertex_id += 1
-            except np.linalg.linalg.LinAlgError:
-                pass
+            x0, y0 = _find_intersection_coordinates(line1, line2)
+            if x0 < 0 or y0 < 0 or x0 > width or y0 > height:
+                continue
+            if not already_present(x0, y0, corners):
+                corners.append([vertex_id, line1, line2, x0, y0])
+                vertex_id += 1
     return corners
+
+
+def _find_intersection_coordinates(line1, line2):
+    rho1, theta1 = line1
+    rho2, theta2 = line2
+    a = np.array([[np.cos(theta1), np.sin(theta1)], [np.cos(theta2), np.sin(theta2)]])
+    b = np.array([[rho1], [rho2]])
+    try:
+        # aX = b -> solve for x, see:
+        # https://stackoverflow.com/questions/46565975/find-intersection-point-of-two-lines-drawn-using-houghlines-opencv
+        x0, y0 = np.round(np.linalg.solve(a, b))
+        return int(x0), int(y0)
+    except np.linalg.linalg.LinAlgError:
+        # singular matrix
+        pass
+    return -1, -1
 
 
 # TODO _x0, _y0 becomes line, if becomes lines_are_same
