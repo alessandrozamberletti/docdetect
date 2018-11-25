@@ -15,7 +15,6 @@ def find_corners(lines, im, angle_thr=45):
             if angle < angle_thr:
                 continue
             x, y = _find_intersection_coordinates(rho1, theta1, rho2, theta2)
-            # TODO use set instead
             if _coordinates_are_valid(x, y, width, height) and not already_present(x, y, corners):
                 corners.append([vertex_id, line1, line2, x, y])
                 vertex_id += 1
@@ -38,11 +37,10 @@ def _coordinates_are_valid(x, y, width, height):
     return 0 < x < width and 0 < y < height
 
 
-# TODO _x0, _y0 becomes line, if becomes lines_are_same
-def already_present(_x0, _y0, angles):
-    for x in angles:
-        x0 = x[-2]
-        y0 = x[-1]
-        if _x0 == x0 and _y0 == y0:
+def already_present(_x, _y, corners):
+    for corner in corners:
+        x = corner[-2]
+        y = corner[-1]
+        if _x == x and _y == y:
             return True
     return False
