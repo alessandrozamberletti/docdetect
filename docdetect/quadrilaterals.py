@@ -49,17 +49,6 @@ def _build_graph(corners):
     return graph
 
 
-def _dfs(neighbours, current_node, cycles, seen_nodes=[], cycle_length=4):
-    if current_node in seen_nodes:
-        if len(seen_nodes) - seen_nodes.index(current_node) == cycle_length:
-            cycles.append(seen_nodes[seen_nodes.index(current_node):].copy())
-        return
-    seen_nodes.append(current_node)
-    for adj_node in neighbours[current_node]:
-        _dfs(neighbours, adj_node, cycles, seen_nodes=seen_nodes)
-    del seen_nodes[-1]
-
-
 def _partial_dfs(neighbours, current_node, cycles, seen_nodes=[], cycle_length=4):
     if current_node not in seen_nodes:
         seen_nodes.append(current_node)
