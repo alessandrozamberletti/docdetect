@@ -18,10 +18,6 @@ def find_corners(lines, im, angle_thr=45):
     return corners
 
 
-def _angle_is_valid(line1, line2, angle_thr):
-    return lines_angle(line1, line2) > angle_thr
-
-
 def _find_intersection_coordinates(line1, line2):
     rho1, theta1 = line1
     rho2, theta2 = line2
@@ -36,10 +32,6 @@ def _find_intersection_coordinates(line1, line2):
         return -1, -1
 
 
-def _coordinates_are_valid(x, y, width, height):
-    return 0 < x < width and 0 < y < height
-
-
 def already_present(_x, _y, corners):
     for corner in corners:
         x = corner[-2]
@@ -47,3 +39,11 @@ def already_present(_x, _y, corners):
         if _x == x and _y == y:
             return True
     return False
+
+
+def _angle_is_valid(line1, line2, angle_thr):
+    return lines_angle(line1, line2) > angle_thr
+
+
+def _coordinates_are_valid(x, y, width, height):
+    return 0 < x < width and 0 < y < height
