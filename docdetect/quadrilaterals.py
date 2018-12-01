@@ -2,14 +2,10 @@
 from docdetect.line_utils import lines_are_same
 
 
-def find_quadrilaterals(corners, full=False):
+def find_quadrilaterals(corners):
     graph = _build_graph(corners)
     quadrilaterals = []
-    if full:
-        if len(graph) != 0:
-            _dfs(graph, 0, quadrilaterals)
-    else:
-        for node in graph:
+    for node in graph:
             _partial_dfs(graph, node, quadrilaterals)
     return _cycle2coords(quadrilaterals, corners)
 
