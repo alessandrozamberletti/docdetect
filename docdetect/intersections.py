@@ -12,7 +12,7 @@ def find_intersections(lines, im, angle_thr=45):
             if not _angle_is_valid(line1, line2, angle_thr):
                 continue
             coords = _find_intersection_coords(line1, line2)
-            if _coordinates_are_valid(coords, width, height) and not already_present(coords, intersections):
+            if _coordinates_are_valid(coords, width, height) and not _already_present(coords, intersections):
                 intersections.append({'id': vertex_id, 'lines': (line1, line2), 'coords': coords})
                 vertex_id += 1
     return intersections
@@ -32,10 +32,8 @@ def _find_intersection_coords(line1, line2):
         return -1, -1
 
 
-def already_present(coords, intersections):
-    if any(intersection['coords'] == coords for intersection in intersections):
-        return True
-    return False
+def _already_present(coords, intersections):
+    return True if any(intersection['coords'] == coords for intersection in intersections) else False
 
 
 def _angle_is_valid(line1, line2, angle_thr):
