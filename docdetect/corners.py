@@ -13,7 +13,7 @@ def find_corners(lines, im, angle_thr=45):
                 continue
             x, y = _find_intersection_coordinates(line1, line2)
             if _coordinates_are_valid(x, y, width, height) and not already_present(x, y, corners):
-                corners.append([vertex_id, line1, line2, x, y])
+                corners.append({'id': vertex_id, 'lines': (line1, line2), 'corner': (x, y)})
                 vertex_id += 1
     return corners
 
@@ -34,8 +34,8 @@ def _find_intersection_coordinates(line1, line2):
 
 def already_present(_x, _y, corners):
     for corner in corners:
-        x = corner[-2]
-        y = corner[-1]
+        x = corner['corner'][0]
+        y = corner['corner'][1]
         if _x == x and _y == y:
             return True
     return False

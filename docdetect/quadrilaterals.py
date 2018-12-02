@@ -12,14 +12,12 @@ def find_quadrilaterals(corners):
 
 def _cycle2coords(cycles, corners):
     coords = []
-    for k1 in cycles:
+    for cycle in cycles:
         rect = []
-        for node in k1:
+        for node in cycle:
             for intersection in corners:
-                if intersection[0] == node:
-                    x = intersection[-2]
-                    y = intersection[-1]
-                    rect.append((x, y))
+                if intersection['id'] == node:
+                    rect.append(intersection['corner'])
         coords.append(rect)
     return coords
 
@@ -27,21 +25,17 @@ def _cycle2coords(cycles, corners):
 def _build_graph(corners):
     graph = {}
     for corner in corners:
-        line1 = corner[-4]
-        line2 = corner[-3]
-        x = corner[-2]
-        y = corner[-1]
-        graph[corner[0]] = []
+        line1, line2 = corner['lines']
+        graph[corner['id']] = []
         for corner1 in corners:
-            if x == corner1[-2] and y == corner1[-1]:
+            if corner['corner'] == corner1['corner']:
                 continue
-            line21 = corner1[-4]
-            line22 = corner1[-3]
+            line21, line22 = corner1['lines']
             if lines_are_same(line1, line21) or \
                     lines_are_same(line1, line22) or \
                     lines_are_same(line2, line21) or \
                     lines_are_same(line2, line22):
-                graph[corner[0]].append(corner1[0])
+                graph[corner['id']].append(corner1['id'])
     return graph
 
 
