@@ -1,10 +1,10 @@
 # -*- coding: utf-8 -*-
 from unittest import TestCase, main
 
-from docdetect.corners import _angle_is_valid, _coordinates_are_valid
+from docdetect.intersections import _angle_is_valid, _coordinates_are_valid
 
 
-class TestCorners(TestCase):
+class TestIntersections(TestCase):
     def test_angle_is_valid(self):
         self.assertEqual(True, _angle_is_valid((0, 0.26), (0, 0.08), 10))
         self.assertEqual(False, _angle_is_valid((0, 0.26), (0, 0.08), 11))

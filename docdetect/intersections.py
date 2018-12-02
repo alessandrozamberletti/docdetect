@@ -3,19 +3,19 @@ import numpy as np
 from docdetect.line_utils import lines_angle
 
 
-def find_corners(lines, im, angle_thr=45):
+def find_intersections(lines, im, angle_thr=45):
     height, width = im.shape[:2]
-    corners = []
+    intersections = []
     vertex_id = 0
     for line1 in lines:
         for line2 in lines:
             if not _angle_is_valid(line1, line2, angle_thr):
                 continue
             x, y = _find_intersection_coordinates(line1, line2)
-            if _coordinates_are_valid(x, y, width, height) and not already_present(x, y, corners):
-                corners.append({'id': vertex_id, 'lines': (line1, line2), 'corner': (x, y)})
+            if _coordinates_are_valid(x, y, width, height) and not already_present(x, y, intersections):
+                intersections.append({'id': vertex_id, 'lines': (line1, line2), 'corner': (x, y)})
                 vertex_id += 1
-    return corners
+    return intersections
 
 
 def _find_intersection_coordinates(line1, line2):
@@ -32,11 +32,9 @@ def _find_intersection_coordinates(line1, line2):
         return -1, -1
 
 
-def already_present(_x, _y, corners):
-    for corner in corners:
-        x = corner['corner'][0]
-        y = corner['corner'][1]
-        if _x == x and _y == y:
+def already_present(x, y, intersections):
+    for intersection in intersections:
+        if (x, y) == intersection['corner']:
             return True
     return False
 
