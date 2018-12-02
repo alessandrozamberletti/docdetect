@@ -7,19 +7,18 @@ def find_quadrilaterals(corners):
     quadrilaterals = []
     for node in graph:
             _partial_dfs(graph, node, quadrilaterals)
-    return _cycle2coords(quadrilaterals, corners)
+    return _quadrilaterals2coordinates(quadrilaterals, corners)
 
 
-def _cycle2coords(cycles, corners):
-    coords = []
-    for cycle in cycles:
+def _quadrilaterals2coordinates(quadrilaterals, corners):
+    coordinates = []
+    for quadrilateral in quadrilaterals:
         rect = []
-        for node in cycle:
-            for intersection in corners:
-                if intersection['id'] == node:
-                    rect.append(intersection['corner'])
-        coords.append(rect)
-    return coords
+        for node in quadrilateral:
+            corner = next(corner['corner'] for corner in corners if corner['id'] == node)
+            rect.append(corner)
+        coordinates.append(rect)
+    return coordinates
 
 
 def _build_graph(corners):
