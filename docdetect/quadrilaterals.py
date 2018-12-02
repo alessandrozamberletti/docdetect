@@ -6,7 +6,7 @@ def find_quadrilaterals(intersections):
     graph = _build_graph(intersections)
     quadrilaterals = []
     for node in graph:
-            _partial_dfs(graph, node, quadrilaterals)
+            _bounded_dfs(graph, node, quadrilaterals)
     return _quadrilaterals2coords(quadrilaterals, intersections)
 
 
@@ -38,7 +38,7 @@ def _build_graph(corners):
     return graph
 
 
-def _partial_dfs(neighbours, current_node, cycles, seen_nodes=[], cycle_length=4):
+def _bounded_dfs(neighbours, current_node, cycles, seen_nodes=[], cycle_length=4):
     if current_node not in seen_nodes:
         seen_nodes.append(current_node)
         if len(seen_nodes) == cycle_length:
@@ -46,5 +46,5 @@ def _partial_dfs(neighbours, current_node, cycles, seen_nodes=[], cycle_length=4
                 cycles.append(seen_nodes.copy())
         else:
             for adj_node in neighbours[current_node]:
-                _partial_dfs(neighbours, adj_node, cycles, seen_nodes=seen_nodes)
+                _bounded_dfs(neighbours, adj_node, cycles, seen_nodes=seen_nodes)
         del seen_nodes[-1]
