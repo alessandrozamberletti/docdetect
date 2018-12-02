@@ -2,20 +2,20 @@
 from docdetect.line_utils import lines_are_same
 
 
-def find_quadrilaterals(corners):
-    graph = _build_graph(corners)
+def find_quadrilaterals(intersections):
+    graph = _build_graph(intersections)
     quadrilaterals = []
     for node in graph:
             _partial_dfs(graph, node, quadrilaterals)
-    return _quadrilaterals2coordinates(quadrilaterals, corners)
+    return _quadrilaterals2coords(quadrilaterals, intersections)
 
 
-def _quadrilaterals2coordinates(quadrilaterals, corners):
+def _quadrilaterals2coords(quadrilaterals, intersections):
     coordinates = []
     for quadrilateral in quadrilaterals:
         rect = []
         for node in quadrilateral:
-            corner = next(corner['corner'] for corner in corners if corner['id'] == node)
+            corner = next(corner['coords'] for corner in intersections if corner['id'] == node)
             rect.append(corner)
         coordinates.append(rect)
     return coordinates
@@ -27,7 +27,7 @@ def _build_graph(corners):
         line1, line2 = corner['lines']
         graph[corner['id']] = []
         for corner1 in corners:
-            if corner['corner'] == corner1['corner']:
+            if corner['coords'] == corner1['coords']:
                 continue
             line21, line22 = corner1['lines']
             if lines_are_same(line1, line21) or \
