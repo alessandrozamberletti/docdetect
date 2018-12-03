@@ -11,30 +11,30 @@ def find_quadrilaterals(intersections):
 
 
 def _quadrilaterals2coords(quadrilaterals, intersections):
-    coordinates = []
+    coords = []
     for quadrilateral in quadrilaterals:
         rect = []
         for node in quadrilateral:
             corner = next(corner['coords'] for corner in intersections if corner['id'] == node)
             rect.append(corner)
-        coordinates.append(rect)
-    return coordinates
+        coords.append(rect)
+    return coords
 
 
-def _build_graph(corners):
+def _build_graph(intersections):
     graph = {}
-    for corner in corners:
-        line1, line2 = corner['lines']
-        graph[corner['id']] = []
-        for corner1 in corners:
-            if corner['coords'] == corner1['coords']:
+    for intersection1 in intersections:
+        line1, line2 = intersection1['lines']
+        graph[intersection1['id']] = []
+        for intersection2 in intersections:
+            if intersection1['coords'] == intersection2['coords']:
                 continue
-            line21, line22 = corner1['lines']
+            line21, line22 = intersection2['lines']
             if lines_are_same(line1, line21) or \
                     lines_are_same(line1, line22) or \
                     lines_are_same(line2, line21) or \
                     lines_are_same(line2, line22):
-                graph[corner['id']].append(corner1['id'])
+                graph[intersection1['id']].append(intersection2['id'])
     return graph
 
 
