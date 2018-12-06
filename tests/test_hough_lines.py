@@ -2,6 +2,7 @@
 from tests import im
 from unittest import TestCase, main
 from random import randint
+from numpy import zeros, uint8
 
 from docdetect.canny_edges import detect_edges
 from docdetect.hough_lines import detect_lines, _group_similar, _cvhoughlines2list
@@ -45,6 +46,10 @@ class TestCannyEdges(TestCase):
         self.assert_groups_are([(0, 0), (1, 0), (2, 0), (3, 0)], [(0, 0), (3, 0)], group_similar_thr=3)
         self.assert_groups_are([(0, 0), (1, 0), (2, 0), (3, 0)], [(0, 0)], group_similar_thr=4)
         self.assert_groups_are([(0, 0), (1, 0), (2, 0), (3, 0)], [(0, 0)], group_similar_thr=100)
+
+    def test_no_lines(self):
+        empty_im = zeros((10, 10, 1), dtype=uint8)
+        self.assertEqual([], detect_lines(empty_im))
 
     def test_group_similar_is_deterministic(self):
         max_rho = 100
