@@ -11,17 +11,12 @@ video = cv2.VideoCapture(video_path)
 while video.isOpened():
     ret, frame = video.read()
     if ret:
-        frame = cv2.bitwise_not(frame)
-        edges = docdetect.detect_edges(frame)
-        lines_unique = docdetect.detect_lines(edges)
-        _intersections = docdetect.find_intersections(lines_unique, frame)
-        rects = docdetect.find_quadrilaterals(_intersections)
+        rects = docdetect.process(frame)
 
         area = -1
         best = None
         for rect in rects:
-            points = (rect[0], rect[1], rect[2], rect[3])
-            x, y = zip(*points)
+            x, y = zip(*rect)
             width = max(x) - min(x)
             height = max(y) - min(y)
             if width*height > area:
