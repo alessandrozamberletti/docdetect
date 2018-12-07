@@ -1,12 +1,12 @@
 # -*- coding: utf-8 -*-
-from docdetect.line_utils import lines_are_same
+import itertools
 
 
 def find_quadrilaterals(intersections):
     graph = _build_graph(intersections)
     quadrilaterals = []
     for node in graph:
-            _bounded_dfs(graph, node, quadrilaterals)
+        _bounded_dfs(graph, node, quadrilaterals)
     return _quadrilaterals2coords(quadrilaterals, intersections)
 
 
@@ -22,20 +22,16 @@ def _quadrilaterals2coords(quadrilaterals, intersections):
 
 
 def _build_graph(intersections):
-    graph = {}
-    for intersection1 in intersections:
-        line1, line2 = intersection1['lines']
-        graph[intersection1['id']] = []
-        for intersection2 in intersections:
-            if intersection1['coords'] == intersection2['coords']:
-                continue
-            line21, line22 = intersection2['lines']
-            if lines_are_same(line1, line21) or \
-                    lines_are_same(line1, line22) or \
-                    lines_are_same(line2, line21) or \
-                    lines_are_same(line2, line22):
-                graph[intersection1['id']].append(intersection2['id'])
+    graph = {k['id']: [] for k in intersections}
+    for i1, i2 in itertools.permutations(intersections, 2):
+        if _common_line_exists(i1['lines'], i2['lines']):
+            graph[i1['id']].append(i2['id'])
     return graph
+
+
+def _common_line_exists(l1, l2):
+    common_line = set(list(l1)) & set(list(l2))
+    return True if common_line else False
 
 
 def _bounded_dfs(neighbours, current_node, cycles, seen_nodes=[]):
