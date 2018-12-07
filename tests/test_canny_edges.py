@@ -16,7 +16,7 @@ class TestCannyEdges(TestCase):
         assert_array_equal([0, 255], sort(unique(edges)))
 
     def test_preprocess_correct_shape(self):
-        preprocess_im = _preprocess(im, True, 3)
+        preprocess_im = _preprocess(im, 3)
         self.assertEqual(2, len(preprocess_im.shape))
 
     def test_find_characters(self):

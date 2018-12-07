@@ -2,8 +2,8 @@
 import cv2
 
 
-def detect_edges(im, blur=False, blur_radius=9, thr1=100, thr2=200, remove_text=True):
-    enhanced_im = _preprocess(im, blur, blur_radius)
+def detect_edges(im, blur_radius=0, thr1=100, thr2=200, remove_text=True):
+    enhanced_im = _preprocess(im, blur_radius)
     edges = cv2.Canny(enhanced_im, thr1, thr2)
     if remove_text:
         height, width = im.shape[:2]
@@ -12,9 +12,9 @@ def detect_edges(im, blur=False, blur_radius=9, thr1=100, thr2=200, remove_text=
     return edges
 
 
-def _preprocess(im, blur, blur_radius):
+def _preprocess(im, blur_radius):
     saturation = cv2.cvtColor(im, cv2.COLOR_BGR2HSV)[..., 2]
-    if blur:
+    if blur_radius != 0:
         saturation = cv2.medianBlur(saturation, blur_radius)
     return saturation
 
