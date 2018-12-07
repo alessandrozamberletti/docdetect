@@ -1,36 +1,34 @@
 # -*- coding: utf-8 -*-
-from cv2 import HoughLines
-from numpy import pi, abs
-from math import fabs
+import cv2
+import numpy as np
+import math
 
 
-def detect_lines(im, rho=1, theta=pi/90, hough_thr=65, group_similar=True, group_similar_thr=30):
-    lines = HoughLines(image=im, rho=rho, theta=theta, threshold=hough_thr)
+def detect_lines(im, rho=1, theta=np.pi/90, hough_thr=65, group_similar_thr=30):
+    lines = cv2.HoughLines(image=im, rho=rho, theta=theta, threshold=hough_thr)
     if lines is None:
         return []
     lines = _cvhoughlines2list(lines)
-    if group_similar:
+    if group_similar_thr != 0:
         lines = _group_similar(lines, group_similar_thr)
     return lines
 
 
-def _group_similar(lines, group_similar_thr):
+def _group_similar(lines, thr):
     lines = sorted(lines, key=lambda line: line[0])
     lines_unique = []
-    for rho1, theta1 in lines:
-        found = False
-        for rho2, theta2 in lines_unique:
-            if abs(fabs(rho1) - fabs(rho2)) < group_similar_thr:
-                found = True
-                break
-        if not found:
-            lines_unique.append(_line(rho1, theta1))
+    for to_add in lines:
+        if not _is_duplicated(to_add, lines_unique, thr):
+            lines_unique.append(to_add)
     return lines_unique
 
 
+def _is_duplicated(line, lines, thr):
+    return any(abs(math.fabs(line[0]) - math.fabs(_line[0])) < thr for _line in lines)
+
+
 def _cvhoughlines2list(lines):
-    return [_line(*line[0]) for line in lines]
+    # line[0][0] = rho
+    # line[0][1] = theta
+    return [(line[0][0], line[0][1]) for line in lines]
 
-
-def _line(rho, theta):
-    return rho, theta
