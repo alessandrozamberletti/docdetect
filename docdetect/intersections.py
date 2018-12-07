@@ -1,5 +1,6 @@
 # -*- coding: utf-8 -*-
 import numpy as np
+import itertools
 from docdetect.line_utils import lines_angle
 
 
@@ -7,14 +8,13 @@ def find_intersections(lines, im, angle_thr=45):
     height, width = im.shape[:2]
     intersections = []
     vertex_id = 0
-    for line1 in lines:
-        for line2 in lines:
-            if not _angle_is_valid(line1, line2, angle_thr):
-                continue
-            coords = _find_intersection_coords(line1, line2)
-            if _coords_are_valid(coords, width, height) and not _already_present(coords, intersections):
-                intersections.append({'id': vertex_id, 'lines': (line1, line2), 'coords': coords})
-                vertex_id += 1
+    for line1, line2 in itertools.permutations(lines, 2):
+        if not _angle_is_valid(line1, line2, angle_thr):
+            continue
+        coords = _find_intersection_coords(line1, line2)
+        if _coords_are_valid(coords, width, height) and not _already_present(coords, intersections):
+            intersections.append({'id': vertex_id, 'lines': (line1, line2), 'coords': coords})
+            vertex_id += 1
     return intersections
 
 
