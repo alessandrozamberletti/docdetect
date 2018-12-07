@@ -9,7 +9,7 @@ def find_intersections(lines, im, angle_thr=45):
     intersections = []
     vertex_id = 0
     for line1, line2 in itertools.permutations(lines, 2):
-        if _angle_are_similar(line1, line2, angle_thr):
+        if _angles_are_similar(line1, line2, angle_thr):
             continue
         coords = _find_intersection_coords(line1, line2)
         if _coords_are_valid(coords, width, height) and not _already_present(coords, intersections):
@@ -38,7 +38,7 @@ def _already_present(coords, intersections):
     return True if any(intersection['coords'] == coords for intersection in intersections) else False
 
 
-def _angle_are_similar(line1, line2, angle_thr):
+def _angles_are_similar(line1, line2, angle_thr):
     return lines_angle(line1, line2) < angle_thr
 
 
