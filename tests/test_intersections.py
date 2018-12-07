@@ -1,13 +1,13 @@
 # -*- coding: utf-8 -*-
 from unittest import TestCase, main
 
-from docdetect.intersections import _angle_is_valid, _coords_are_valid, _already_present, _find_intersection_coords
+from docdetect.intersections import _angle_are_similar, _coords_are_valid, _already_present, _find_intersection_coords
 
 
 class TestIntersections(TestCase):
     def test_angle_is_valid(self):
-        self.assertEqual(True, _angle_is_valid((0, 0.26), (0, 0.08), 10))
-        self.assertEqual(False, _angle_is_valid((0, 0.26), (0, 0.08), 11))
+        self.assertEqual(False, _angle_are_similar((0, 0.26), (0, 0.08), 10))
+        self.assertEqual(True, _angle_are_similar((0, 0.26), (0, 0.08), 11))
 
     def test_coordinates_are_valid(self):
         self.assertEqual(True, _coords_are_valid((1, 1), 10, 10))
