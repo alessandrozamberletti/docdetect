@@ -4,9 +4,9 @@ import itertools
 
 def find_quadrilaterals(intersections):
     graph = _build_graph(intersections)
-    cycles = []
-    [_bounded_dfs(graph, node, cycles) for node in graph]
-    return _cycles2coords(cycles, intersections)
+    loops = []
+    [_bounded_dfs(graph, node, loops) for node in graph]
+    return _cycles2coords(loops, intersections)
 
 
 def _cycles2coords(cycles, intersections):
@@ -30,17 +30,17 @@ def _common_line_exists(l1, l2):
     return True if common_line else False
 
 
-def _bounded_dfs(neighbours, current, cycles, seen=[]):
+def _bounded_dfs(neighbours, current, loops, seen=[]):
     if current in seen:
         return
     seen.append(current)
     if len(seen) == 4:
-        _add_cycle(current, neighbours, seen, cycles)
+        _add_if_loop(current, neighbours, seen, loops)
     else:
-        [_bounded_dfs(neighbours, neighbour, cycles, seen=seen) for neighbour in neighbours[current]]
+        [_bounded_dfs(neighbours, neighbour, loops, seen=seen) for neighbour in neighbours[current]]
     del seen[-1]
 
 
-def _add_cycle(current, neighbours, seen, cycles):
+def _add_if_loop(current, neighbours, seen, cycles):
     if seen[0] in neighbours[current]:
-        cycles.append(seen.copy())
+        cycles.append(tuple(seen))

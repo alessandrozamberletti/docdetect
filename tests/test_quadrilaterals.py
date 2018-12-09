@@ -1,10 +1,46 @@
 # -*- coding: utf-8 -*-
 from unittest import TestCase, main
 
-from docdetect.quadrilaterals import _common_line_exists
+from docdetect.quadrilaterals import _common_line_exists, _add_if_loop
 
 
 class TestQuadrilaterals(TestCase):
+    #
+    #        ----A-----
+    #        |        |
+    #    ----B---     |
+    #    |      |     |
+    #    C      D     |
+    #    |      |     |
+    #    ----E---     |
+    #        ---------F
+    #
+    def setUp(self):
+        self.neighbours = {'a': ['b', 'f'],
+                           'b': ['a', 'c', 'd'],
+                           'c': ['b', 'e'],
+                           'd': ['b', 'e'],
+                           'e': ['c', 'd', 'f'],
+                           'f': ['a', 'e']}
+
+    def test_add_if_loop(self):
+        seen = ('a', 'b', 'c')
+        cycles = []
+        _add_if_loop('d', self.neighbours, seen, cycles)
+        self.assertEqual([], cycles)
+        seen = ('b', 'c', 'e', 'd')
+        cycles = []
+        _add_if_loop('d', self.neighbours, seen, cycles)
+        self.assertEqual([seen], cycles)
+        seen = ('a', 'b', 'c', 'e', 'f')
+        cycles = []
+        _add_if_loop('f', self.neighbours, seen, cycles)
+        self.assertEqual([seen], cycles)
+        seen = ('a', 'b', 'c', 'e')
+        cycles = []
+        _add_if_loop('e', self.neighbours, seen, cycles)
+        self.assertEqual([], cycles)
+
     def test_common_line_exists(self):
         l0 = (0, 0)
         l1 = (0, 1)
