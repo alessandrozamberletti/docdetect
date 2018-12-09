@@ -31,11 +31,12 @@ def _common_line_exists(l1, l2):
 
 
 def _bounded_dfs(neighbours, current_node, cycles, seen=[]):
-    if current_node not in seen:
-        seen.append(current_node)
-        if len(seen) == 4:
-            if seen[0] in neighbours[current_node]:
-                cycles.append(seen.copy())
-        else:
-            [_bounded_dfs(neighbours, neighbour, cycles, seen=seen) for neighbour in neighbours[current_node]]
-        del seen[-1]
+    if current_node in seen:
+        return
+    seen.append(current_node)
+    if len(seen) == 4:
+        if seen[0] in neighbours[current_node]:
+            cycles.append(seen.copy())
+    else:
+        [_bounded_dfs(neighbours, neighbour, cycles, seen=seen) for neighbour in neighbours[current_node]]
+    del seen[-1]
