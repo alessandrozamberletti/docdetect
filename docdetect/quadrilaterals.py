@@ -4,14 +4,13 @@ import itertools
 
 def find_quadrilaterals(intersections):
     graph = _build_graph(intersections)
-    quadrilaterals = []
-    for node in graph:
-        _bounded_dfs(graph, node, quadrilaterals)
-    return _quadrilaterals2coords(quadrilaterals, intersections)
+    cycles = []
+    [_bounded_dfs(graph, node, cycles) for node in graph]
+    return _cycles2coords(cycles, intersections)
 
 
-def _quadrilaterals2coords(quadrilaterals, intersections):
-    return [[_node2coords(node, intersections) for node in quadrilateral] for quadrilateral in quadrilaterals]
+def _cycles2coords(cycles, intersections):
+    return [[_node2coords(node, intersections) for node in quadrilateral] for quadrilateral in cycles]
 
 
 def _node2coords(node, intersections):
