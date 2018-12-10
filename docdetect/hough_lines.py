@@ -5,7 +5,7 @@ import math
 
 
 def detect_lines(im, hough_thr=65, group_similar_thr=30):
-    lines = cv2.HoughLines(image=im, rho=1, theta=np.pi/90, threshold=hough_thr)
+    lines = cv2.HoughLines(image=im, rho=1, theta=np.pi / 90, threshold=hough_thr)
     if lines is None:
         return []
     lines = _cvhoughlines2list(lines)
@@ -31,4 +31,3 @@ def _cvhoughlines2list(lines):
     # line[0][0] = rho
     # line[0][1] = theta
     return [(line[0][0], line[0][1]) for line in lines]
-

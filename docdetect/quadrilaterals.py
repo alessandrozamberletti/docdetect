@@ -10,18 +10,19 @@ def find_quadrilaterals(intersections):
 
 
 def _cycles2coords(cycles, intersections):
-    return [[_node2coords(node, intersections) for node in quadrilateral] for quadrilateral in cycles]
+    return [[_node2coords(node, intersections)for node in quadrilateral]
+            for quadrilateral in cycles]
 
 
 def _node2coords(node, intersections):
-    return next(corner['coords'] for corner in intersections if corner['id'] == node)
+    return next(corner["coords"] for corner in intersections if corner["id"] == node)
 
 
 def _build_graph(intersections):
-    graph = {k['id']: [] for k in intersections}
+    graph = {k["id"]: [] for k in intersections}
     for i1, i2 in itertools.permutations(intersections, 2):
-        if _common_line_exists(i1['lines'], i2['lines']):
-            graph[i1['id']].append(i2['id'])
+        if _common_line_exists(i1["lines"], i2["lines"]):
+            graph[i1["id"]].append(i2["id"])
     return graph
 
 
@@ -37,7 +38,8 @@ def _bounded_dfs(neighbours, current, loops, seen=[]):
     if len(seen) == 4:
         _add_if_loop(current, neighbours, seen, loops)
     else:
-        [_bounded_dfs(neighbours, neighbour, loops, seen=seen) for neighbour in neighbours[current]]
+        [_bounded_dfs(neighbours, neighbour, loops, seen=seen)
+         for neighbour in neighbours[current]]
     del seen[-1]
 
 
