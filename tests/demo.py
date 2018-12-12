@@ -12,22 +12,7 @@ while video.isOpened():
     ret, frame = video.read()
     if ret:
         rects = docdetect.process(frame)
-
-        area = -1
-        best = None
-        for rect in rects:
-            x, y = zip(*rect)
-            width = max(x) - min(x)
-            height = max(y) - min(y)
-            if width*height > area:
-                best = rect
-                area = width*height
-
-        if best is not None:
-            cv2.line(frame, best[0], best[1], (255, 0, 0), thickness=5, lineType=8)
-            cv2.line(frame, best[1], best[2], (255, 0, 0), thickness=5, lineType=8)
-            cv2.line(frame, best[2], best[3], (255, 0, 0), thickness=5, lineType=8)
-            cv2.line(frame, best[3], best[0], (255, 0, 0), thickness=5, lineType=8)
+        frame = docdetect.draw(rects, frame)
 
         cv2.startWindowThread()
         cv2.namedWindow('output')
