@@ -11,21 +11,23 @@ def process(im):
     return docdetect.find_quadrilaterals(_intersections)
 
 
-def draw(rects, im):
-    area = -1
-    best = None
-    for rect in rects:
-        x, y = zip(*rect)
-        width = max(x) - min(x)
-        height = max(y) - min(y)
-        if width * height > area:
-            best = rect
-            area = width * height
-
-    if best is not None:
-        cv2.line(im, best[0], best[1], (255, 0, 255), thickness=5, lineType=8)
-        cv2.line(im, best[1], best[2], (255, 0, 255), thickness=5, lineType=8)
-        cv2.line(im, best[2], best[3], (255, 0, 255), thickness=5, lineType=8)
-        cv2.line(im, best[3], best[0], (255, 0, 255), thickness=5, lineType=8)
-
+def draw(rects, im, debug=False):
+    if len(rects) == 0:
+        return im
+    if debug:
+        [draw_rect(im, rect, (0, 255, 0), 2) for rect in rects]
+    best = max(rects, key=_area)
+    if best:
+        draw_rect(im, best)
     return im
+
+
+def _area(rect):
+    x, y = zip(*rect)
+    width = max(x) - min(x)
+    height = max(y) - min(y)
+    return width * height
+
+
+def draw_rect(im, rect, col=(255, 0, 0), thickness=5):
+    [cv2.line(im, rect[i], rect[(i+1) % len(rect)], col, thickness=thickness) for i in range(len(rect))]
