@@ -11,7 +11,7 @@
 
 # development timeline
 
-~~Unofficial implementation of~~ Trying to emulate [Fast and Accurate Document Detection for Scanning](https://blogs.dropbox.com/tech/2016/08/fast-and-accurate-document-detection-for-scanning/) without ML
+Trying to emulate [Fast and Accurate Document Detection for Scanning](https://blogs.dropbox.com/tech/2016/08/fast-and-accurate-document-detection-for-scanning/) without ML
  
 2018/10/20: check literature and datasets **done**  
 2018/10/23: compare canny+mser+hough and ml approach **done**  
