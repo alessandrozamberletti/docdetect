@@ -7,6 +7,7 @@
 
 <p align="center"> 
   <img src="./res/01.gif" alt="sample_01"/>
+  <img src="./res/02.gif" alt="sample_02"/>
 </p>
 
 # resources  
