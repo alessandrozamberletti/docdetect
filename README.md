@@ -10,5 +10,13 @@
   <img src="./res/02.gif" alt="sample_02"/>
 </p>
 
-# resources  
+# Installation
+
+TBD
+
+# Examples
+
+TBD
+
+# Resources  
 * [Fast and Accurate Document Detection for Scanning](https://blogs.dropbox.com/tech/2016/08/fast-and-accurate-document-detection-for-scanning/)
