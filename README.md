@@ -17,7 +17,12 @@ TBD
 
 # Examples
 
-TBD
+```python
+import docdetect
+
+rects = docdetect.process(image)
+image = docdetect.draw(rects, image)
+```
 
 # Resources  
 * [Fast and Accurate Document Detection for Scanning](https://blogs.dropbox.com/tech/2016/08/fast-and-accurate-document-detection-for-scanning/)
