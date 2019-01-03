@@ -5,7 +5,7 @@ with open('README.md', 'r') as fh:
 
 setuptools.setup(
     name='docdetect',
-    version='2019.01.1',
+    version='2019.01.2',
     author='alez',
     author_email='alez.pypi@gmail.com',
     url='https://github.com/alessandrozamberletti/docdetect',
