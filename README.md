@@ -6,9 +6,9 @@
 [![Maintainability](https://api.codeclimate.com/v1/badges/a9aa496faab72437e650/maintainability)](https://codeclimate.com/github/alessandrozamberletti/docdetect/maintainability)
 
 <p align="center"> 
-  <img src="https://github.com/alessandrozamberletti/docdetect/blob/master/res/01.gif" alt="sample_01"/>
-  <img src="https://github.com/alessandrozamberletti/docdetect/blob/master/res/02.gif" alt="sample_02"/>
-  <img src="https://github.com/alessandrozamberletti/docdetect/blob/master/res/03.gif" alt="sample_03"/>
+  <img src="./res/01.gif" alt="sample_01"/>
+  <img src="./res/02.gif" alt="sample_02"/>
+  <img src="./res/03.gif" alt="sample_03"/>
 </p>
 
 # Installation
