@@ -7,9 +7,9 @@
 [![PyPI version](https://badge.fury.io/py/docdetect.svg)](https://badge.fury.io/py/docdetect)
 
 <p align="center"> 
-  <img src="https://github.com/alessandrozamberletti/docdetect/blob/master/res/01.gif" alt="sample_01"/>
-  <img src="https://github.com/alessandrozamberletti/docdetect/blob/master/res/02.gif" alt="sample_02"/>
-  <img src="https://github.com/alessandrozamberletti/docdetect/blob/master/res/03.gif" alt="sample_03"/>
+  <img src="./res/01.gif" alt="sample_01"/>
+  <img src="./res/02.gif" alt="sample_02"/>
+  <img src="./res/03.gif" alt="sample_03"/>
 </p>
 
 # Installation
