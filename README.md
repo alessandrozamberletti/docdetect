@@ -4,6 +4,7 @@
 [![Build status](https://ci.appveyor.com/api/projects/status/l1gjc8g7c1q3846j/branch/master?svg=true)](https://ci.appveyor.com/project/alessandrozamberletti/docdetect/branch/master)
 [![codecov](https://codecov.io/gh/alessandrozamberletti/docdetect/branch/master/graph/badge.svg)](https://codecov.io/gh/alessandrozamberletti/docdetect)
 [![Maintainability](https://api.codeclimate.com/v1/badges/a9aa496faab72437e650/maintainability)](https://codeclimate.com/github/alessandrozamberletti/docdetect/maintainability)
+[![PyPI version](https://badge.fury.io/py/docdetect.svg)](https://badge.fury.io/py/docdetect)
 
 <p align="center"> 
   <img src="https://github.com/alessandrozamberletti/docdetect/blob/master/res/01.gif" alt="sample_01"/>
@@ -13,7 +14,15 @@
 
 # Installation
 
-TBD
+To install, use `pip` or `easy_install`:
+
+```bash
+$ pip install --upgrade ebayfeed
+```
+or
+```bash
+$ easy_install --upgrade ebayfeed
+```
 
 # Examples
 
