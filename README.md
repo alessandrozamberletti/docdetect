@@ -26,11 +26,31 @@ $ easy_install --upgrade docdetect
 
 # Examples
 
+Process an ```image```:
 ```python
 import docdetect
 
 rects = docdetect.process(image)
 image = docdetect.draw(rects, image)
+```
+
+Process a ```video```:
+
+```python
+import cv2
+import docdetect
+
+video = cv2.VideoCapture(video_path)
+cv2.startWindowThread()
+cv2.namedWindow('output')
+while video.isOpened():
+    ret, frame = video.read()
+    if ret:
+        rects = docdetect.process(frame)
+        frame = docdetect.draw(rects, frame)
+        cv2.imshow('output', frame)
+        cv2.waitKey(1)
+video.release()
 ```
 
 # Resources  
