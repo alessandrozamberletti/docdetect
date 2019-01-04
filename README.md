@@ -17,11 +17,11 @@
 To install, use `pip` or `easy_install`:
 
 ```bash
-$ pip install --upgrade ebayfeed
+$ pip install --upgrade docdetect
 ```
 or
 ```bash
-$ easy_install --upgrade ebayfeed
+$ easy_install --upgrade docdetect
 ```
 
 # Examples
