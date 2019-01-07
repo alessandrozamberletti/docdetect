@@ -24,6 +24,10 @@ or
 $ easy_install --upgrade docdetect
 ```
 
+# Instructions
+
+TBD
+
 # Examples
 
 Process an ```image```:
