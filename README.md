@@ -12,6 +12,8 @@
   <img src="./res/03.gif" alt="sample_03"/>
 </p>
 
+Simple real-time detection of documents in images using Canny Edge Detection, Hough Transform and Depth First Search.
+
 # Installation
 
 To install, use `pip` or `easy_install`:
