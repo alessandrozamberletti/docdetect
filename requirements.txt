@@ -1,5 +1,5 @@
 codecov
 pytest
 pytest-cov < 2.6
-opencv-python
+opencv-python==4.2.0.32
 numpy
