@@ -20,7 +20,7 @@ def _preprocess(im, blur_radius):
 
 
 def _find_characters(im, max_area):
-    mser = cv2.MSER_create(_max_area=max_area)
+    mser = cv2.MSER_create(max_area=max_area)
     gray = cv2.cvtColor(im, cv2.COLOR_BGR2GRAY)
     characters, _ = mser.detectRegions(gray)
     return characters
